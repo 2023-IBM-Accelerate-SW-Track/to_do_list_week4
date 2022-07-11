@@ -36,8 +36,8 @@ We will test this service using the curl utility.  The curl utility is quite use
 1. Stop the backend service if it's currently running (Ctrl-C the terminal/command window where you did the last "npm start" for the backend)
 2. Start the backend service, go to the "to-do-list/backend" directory and install required packages and start the backend:
 ```
-npm install
-npm start
+    npm install
+    npm start
 ```
 
 3. Open another terminal or command window.  Type this curl command to send a request to this service:
@@ -74,8 +74,8 @@ npm start
 
 2. Start the backend service, go to the "to-do-list/backend" directory and install required packages and start the backend (you can skip the npm install if you ran that already above):
 ```
-npm install
-npm start
+    npm install
+    npm start
 ```
 
 3. Open another terminal or command window.  
