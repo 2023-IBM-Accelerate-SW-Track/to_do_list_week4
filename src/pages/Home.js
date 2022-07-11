@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Todos from "../component/todos";
 import AddTodo from "../component/AddTodo";
 import "../pages/Home.css";
+import Axios from "axios";
 
 class Home extends Component {
   // Create a default state of this component with an empty list of todos.
@@ -36,6 +37,26 @@ class Home extends Component {
     // This solution works for a small application but a more complex hashing function should be used when
     // dealing with a larger data sensitive project.
     todo.id = Math.random();
+
+     // Send Task Item to database as a json object upon submission
+     const jsonObject = {
+      id: todo.id,
+      task: todo.content,
+      currentDate: todo.date,
+      dueDate: todo.duedate
+    };
+
+    Axios({
+      method: "POST",
+      url: "http://localhost:8080/add/item",
+      data: {jsonObject},
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => {
+        console.log(res.data.message);
+    });
+
     // Create a array that contains the current array and the new todo item
     let new_list = [...this.state.todos, todo];
     // Update the local state with the new array.
