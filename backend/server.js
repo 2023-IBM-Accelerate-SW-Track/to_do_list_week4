@@ -29,7 +29,7 @@ function addItem (request, response) {
       Due_date: dueDate
     }
     const jsonString = JSON.stringify(newTask)
-    
+  
     var data = fs.readFileSync('database.json');
     var json = JSON.parse(data);
     json.push(newTask);
