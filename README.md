@@ -78,9 +78,10 @@ npm install
 npm start
 ```
 
-2. Open another terminal or command window.  
+3. Open another terminal or command window.  
 Contruct a curl command to search for a task: 
-``` curl http://localhost:8080/get/searchitem?taskname=<nametosearchfor>
+``` 
+    curl http://localhost:8080/get/searchitem?taskname=<nametosearchfor>
 ```
 
 So for example, if you want to search for todo lists with a name of "hello", your command would be:
