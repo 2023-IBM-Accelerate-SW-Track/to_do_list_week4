@@ -162,3 +162,23 @@ Upon completion of Week 4 Lab Project, all the necessary components and function
 
 ## Pre-session Material
 Here is a [**link**](https://ibm.ent.box.com/file/975198401278) to the pre-session material that was provided to you earlier.
+
+## Optional Challenge
+As a completely optional challenge of this lab, you can add support in your backend app to talk to a real database instead of the local file.
+
+1. Setup MongoDB, a NoSQL Database, to run on your computer.
+    1. [Follow the instructions here to install the Community Edition of MongoDB for your operating system.](https://www.mongodb.com/docs/manual/installation/#mongodb-installation-tutorials)
+    1. When you are not running the To-do list app, you do not need to run the `mongod` service. Remember to stop the service when you don't need it.
+    1. Once installed, you can test that it works correctly by running `mongosh` in your terminal.
+1. Install the [mongodb npm package](https://www.npmjs.com/package/mongodb) for your backend app. You'll need to use this to easily connect to mongodb from your code.
+1. In order to maintain the existing functionality of using the JSON file for storage, implement a feature flag to switch between using the JSON file and mongodb.
+    1. You can [read an environment variable in your code](https://nodejs.org/api/process.html#processenv) to decide when to use the file or mongo.
+    1. Based on that variable, you can conditionally call your new code.
+1. Import the package into your code. **Hint**: [follow the example code from the npm package web page](https://www.npmjs.com/package/mongodb#connect-to-mongodb)
+1. When your app starts, load your collection object.
+1. Use methods on the `collection` object to implement the creating a todo-list item in your app.
+    1. [Creating objects](https://www.npmjs.com/package/mongodb#insert-a-document)
+1. For future weeks, you can also implement this in the database for the functions.
+    1. [Finding objects](https://www.npmjs.com/package/mongodb#find-documents-with-a-query-filter)
+    1. [Updating objects](https://www.npmjs.com/package/mongodb#update-a-document)
+    1. [Deleting objects](https://www.npmjs.com/package/mongodb#remove-a-document)
