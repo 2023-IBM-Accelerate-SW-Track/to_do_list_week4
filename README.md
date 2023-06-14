@@ -40,7 +40,7 @@ Implementation requirements:
                   port = process.env.PORT || <port>,
                   cors = require("cors");
            const bodyParser = require('body-parser');
-           const fs = require("fs");
+           const fs = require("fs").promises;
            ```
            **Note:** This snippet of code is importing external modules and reading the environment variables. Make sure to replace `<port>` with a port number of your choosing such as **8080** or **3001** keep note of this port number for future usage. Click on the following links [**express**](https://expressjs.com/en/5x/api.html), [**cors**](https://expressjs.com/en/resources/middleware/cors.html), [**body-parser**](https://expressjs.com/en/resources/middleware/body-parser.html), and [**fs**](https://nodejs.dev/learn/the-nodejs-fs-module) to learn more about these modules and their usage.
         2. Implement the code snippet provided below:
@@ -64,27 +64,30 @@ Implementation requirements:
             **Note:** This snippet of code makes a call the `addItem` function once a **POST** request to the specified route is made.
          5. Implement the code snippet provided below:
             ```javascript
-            function addItem (request, response) {
-                let id = request.body.jsonObject.id
-                let task = request.body.jsonObject.task
-                let curDate = request.body.jsonObject.currentDate
-                let dueDate = request.body.jsonObject.dueDate
-                var newTask = {
-                  ID: id,
-                  Task: task,
-                  Current_date: curDate,
-                  Due_date: dueDate
-                }
-                const jsonString = JSON.stringify(newTask)
+            async function addItem (request, response) {
+                try {
+                    // Converting Javascript object (Task Item) to a JSON string
+                    const id = request.body.jsonObject.id
+                    const task = request.body.jsonObject.task
+                    const curDate = request.body.jsonObject.currentDate
+                    const dueDate = request.body.jsonObject.dueDate
+                    const newTask = {
+                      ID: id,
+                      Task: task,
+                      Current_date: curDate,
+                      Due_date: dueDate
+                    }
 
-                var data = fs.readFileSync('database.json');
-                var json = JSON.parse(data);
-                json.push(newTask);
-                fs.writeFile("database.json", JSON.stringify(json), function(err, result) {
-                  if (err) { console.log('error', err) }
-                  else { console.log('Successfully wrote to file') }
-                });
-                response.send(200)
+                    const data = await fs.readFile("database.json");
+                    const json = JSON.parse(data);
+                    json.push(newTask);
+                    await fs.writeFile("database.json", JSON.stringify(json))
+                    console.log('Successfully wrote to file') 
+                    response.sendStatus(200)
+                } catch (err) {
+                    console.log("error: ", err)
+                    response.sendStatus(500)
+                }
             }
             ```
             **Note:** This snippet of code takes in a request body from the Todo List Application which represents a `todo` item. The body is then converted into a new json object called `newTask` to represent the new `todo` item. The new json object is finally appended to a json list located in a file called `database.json` to represent our `todos` list.
@@ -143,7 +146,7 @@ Upon completion of Week 4 Lab Project, all the necessary components and function
      ```
      "install-backend": "cd backend && npm install",
      "install-both": "npm install & npm run install-backend",
-     "backend": "cd backend && node index.js",
+     "backend": "cd backend && node server.js",
      "start-both": "npm run backend & npm start"
      ```
    + The `package.json` file `scripts` property should now look similar to the screen shot shown below:
